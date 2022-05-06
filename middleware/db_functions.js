@@ -4,8 +4,8 @@ module.exports = {
   SaveUser: function(body) {
     let errors = []
     return new Promise((resolve, reject) => {
-      bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(body.password, salt, function(err, hash) {
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(body.password, salt, (err, hash) => {
           if (err) {
             errors.push({ msg: err })
             reject(errors)

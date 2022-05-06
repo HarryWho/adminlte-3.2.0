@@ -8,6 +8,7 @@ const path = require('path')
 const session = require('express-session')
 const { ConnectMongoDB } = require('./config/DB')
 const passport = require('passport')
+const MongoStore = require('connect-mongo')
 
 // setup express-ejs-layouts view engine
 app.set('view engine', 'ejs')
@@ -23,7 +24,11 @@ app.use(express.urlencoded({ extended: false }))
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI
+
+    })
   }))
   // passport initialization
 app.use(passport.initialize());
